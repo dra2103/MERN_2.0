@@ -5,7 +5,7 @@ import UpdateButton from "../components/UpdateButton";
 import { Link } from "react-router-dom";
 
 const Main = () => {
-    const [authors, setAuthors] = useState(null);
+    const [author, setAuthor] = useState(null);
     const [refresh, setRefresh] = useState(false);
 
     const reloadList = () => {
@@ -14,41 +14,43 @@ const Main = () => {
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/authors`)
-            .then((res) => setAuthors(res.data))
+            .then((res) => setAuthor(res.data))
             .catch((err) => console.log(err.response));
     }, [refresh]);
-        
+
     return (
         <div>
             <h1>Favorite authors</h1>
             <Link to={"/new"}>Add an author</Link>
             <h2>We have quotes by:</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <td>Author</td>
-                        <td>Action Available</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {authors ? 
-                        authors.map((auth, i) => (
+
+            {author ? (
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Author</td>
+                            <td>Action Available</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {author.map((author, i) => (
                             <tr key={i}>
-                                <td>{auth.author}</td>
+                                <td>{author.author}</td>
                                 <td>
-                                    <UpdateButton id={auth._id} />
+                                    <Link to={`/update/${author._id}`}>Edit</Link> 
+                                    <UpdateButton id={author._id} />
                                 </td>
                                 <td>
-                                    <Deletebutton
-                                        id={auth._id}
-                                        reloadList={reloadList}
+                                    <Deletebutton id={author._id} reloadList={reloadList}
                                     />
                                 </td>
                             </tr>
-                        )) : <p>Loading...</p>
-                    }
-                </tbody>
-            </table>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <h1>Loading...</h1>
+            )}
         </div>
     );
 };

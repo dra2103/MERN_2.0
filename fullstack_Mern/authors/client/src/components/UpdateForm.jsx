@@ -3,15 +3,14 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const UpdateForm = (props) => {
-    const [name, setName] = useState("");
+    const [author, setAuthor] = useState("");
     const history = useHistory();
     const { id } = props;
     const [errArr, setErrorArr] = useState([]);
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8000/api/authors/${id}`)
-            .then((res) => setName(res.data.name))
+        axios.get(`http://localhost:8000/api/authors/${id}`)
+            .then((res) => setAuthor(res.data.name))
             .catch((err) => console.log(err.response));
     }, [id]);
 
@@ -19,10 +18,10 @@ const UpdateForm = (props) => {
         e.preventDefault();
         axios
             .put(`http://localhost:8000/api/authors/update/${id}`, {
-                name,
+                author,
             })
             .then((res) => {
-                setName("");
+                setAuthor("");
                 history.push("/");
             })
             .catch((err) => {
@@ -43,8 +42,8 @@ const UpdateForm = (props) => {
                 </label>
                 <input
                     type="Text"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
+                    onChange={(e) => setAuthor(e.target.value)}
+                    value={author}
                 />
                 <button
                     type="button"

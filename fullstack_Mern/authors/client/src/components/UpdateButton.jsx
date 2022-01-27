@@ -7,7 +7,7 @@ const UpdateButton = (props) => {
 
     const clickHandler = (e) => {
         e.preventDefault();
-        history.push(`/api/authors/update/${id}`);
+        history.push(`/update/${id}`);
     };
 
     return (
