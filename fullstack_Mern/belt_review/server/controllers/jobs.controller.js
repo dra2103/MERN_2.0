@@ -4,21 +4,21 @@ const Job = require("../models/jobs.model");
 // Find All
 module.exports.findAllJobs = (req, res) => {
     Job.find()
-        .then(allDaUsers => res.json(allDaUsers))
+        .then(allJobs => res.json(allJobs))
         .catch(err => res.status(400).json(err));
 };
 
 // Find One
 module.exports.findOneJob = (req, res) => {
     Job.findOne({ _id: req.params.id })
-        .then(oneSingleUser => res.json(oneSingleUser))
+        .then(oneJob => res.json(oneJob))
         .catch(err => res.status(400).json(err));
 };
 
 //Create one
 module.exports.createJob= (req, res) => {
     Job.create(req.body)
-        .then(newlyCreatedUser => res.json(newlyCreatedUser))
+        .then(newJob => res.json(newJob))
         .catch(err => res.status(400).json(err));
 };
 
@@ -29,7 +29,7 @@ module.exports.updateJob= (req, res) => {
         req.body, 
         { new: true, runValidators: true }
         )
-        .then(updatedUser => res.json(updatedUser))
+        .then(updateJob => res.json(updateJob))
         .catch(err => res.status(400).json(err))
 };
 
