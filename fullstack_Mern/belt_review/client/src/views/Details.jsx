@@ -31,6 +31,6 @@ const Details = () => {
 
 export default Details
 
-// get id from params params (impot, destructure params)
+// get id from params params (import, destructure params)
 // use the id to wrap info from axios
 // when loaded useEffects useState
